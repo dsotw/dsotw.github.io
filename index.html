@@ -254,8 +254,6 @@ else
         var br = randomIntFromInterval(1,4);
         var cr = randomIntFromInterval(1,4);
         var dr = randomIntFromInterval(1,4);
-        alert("You have 10 seconds... Game begins when you close this message box.");
-        var timegame = setTimeout("stopgame()",10000);
         switch(ar){
             case 1:
                 document.getElementById("aa").style.backgroundColor = "#000";
@@ -313,7 +311,6 @@ else
         
     }
     function stopgame(){
-        clearTimeout(timegame);
         document.getElementById("aa").style.backgroundColor = "#FFF";
         document.getElementById("ab").style.backgroundColor = "#FFF";
         document.getElementById("ac").style.backgroundColor = "#FFF";
