@@ -1,0 +1,341 @@
+<head>
+    <title>Don't Step On The White</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="scripts/keypress-2.0.1.min.js"></script>
+    <script>
+        function setCookie(cname,cvalue,exdays)
+{
+var d = new Date();
+d.setTime(d.getTime()+(exdays*24*60*60*1000));
+var expires = "expires="+d.toGMTString();
+document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+        function getCookie(cname)
+{
+var name = cname + "=";
+var ca = document.cookie.split(';');
+for(var i=0; i<ca.length; i++) 
+  {
+  var c = ca[i].trim();
+  if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+  }
+return "";
+}
+        function checkCookie()
+{
+var highscorecheck=getCookie("highscore");
+if (highscorecheck!="")
+  {
+    highscore = highscorecheck;
+      alert("Welcome back!");
+  }
+else 
+  {
+    highscore = 0;
+    setCookie("highscore",highscore,365);
+    alert("You must be new here, click the \"How to Play\" button in the bottom right.");
+  }
+}
+    </script>
+</head>
+<body>
+    <div id="topbar" onmousedown="togglegame();">START GAME</div>
+    <div id="comeback">Hey :( Come back here!</div>
+    <div id="buttons" onmousedown="tut();">How to Play</div>
+    <div id="game_wrapper" align="center">
+        <div id="game">
+            <div class="square" id="aa"></div>
+            <div class="square" id="ab"></div>
+            <div class="square" id="ac"></div>
+            <div class="square" id="ad"></div>
+            <br>
+            <div class="square" id="ba"></div>
+            <div class="square" id="bb"></div>
+            <div class="square" id="bc"></div>
+            <div class="square" id="bd"></div>
+            <br>
+            <div class="square" id="ca"></div>
+            <div class="square" id="cb"></div>
+            <div class="square" id="cc"></div>
+            <div class="square" id="cd"></div>
+            <br>
+            <div class="square" id="da"></div>
+            <div class="square" id="db"></div>
+            <div class="square" id="dc"></div>
+            <div class="square" id="dd"></div>
+            <br>
+            <div id="tut">See the buttons on the 4 squared that are colored black? Those are the corresponding keys to press that square.</div>
+        </div>
+    </div>
+
+<script>
+    var highscore = 0;
+    var listener = new window.keypress.Listener();
+    var gamestarted = false;
+    var tutorial = false;
+    
+    checkCookie(); //checks the highscores
+    
+    
+    listener.simple_combo("z", function() {
+        if( (document.getElementById("da").style.backgroundColor == "rgb(0, 0, 0)") && (gamestarted == true) && (tutorial == false) ){
+            movedown();
+        } else if((document.getElementById("da").style.backgroundColor == "rgb(255, 255, 255)") && (gamestarted == true) && (tutorial == false)){
+            togglegame();
+        }
+    });
+    listener.simple_combo("x", function() {
+        if( (document.getElementById("db").style.backgroundColor == "rgb(0, 0, 0)") && (gamestarted == true) && (tutorial == false) ){
+            movedown();
+        } else if((document.getElementById("db").style.backgroundColor == "rgb(255, 255, 255)") && (gamestarted == true) && (tutorial == false)) {
+            togglegame();
+        }
+    });
+    listener.simple_combo("c", function() {
+        if( (document.getElementById("dc").style.backgroundColor == "rgb(0, 0, 0)") && (gamestarted == true) && (tutorial == false) ){
+            movedown();
+        } else if ( (document.getElementById("dc").style.backgroundColor == "rgb(255, 255, 255)") && (gamestarted == true) && (tutorial == false) ){
+            togglegame();
+        }
+    });
+    listener.simple_combo("v", function() {
+        if( (document.getElementById("dd").style.backgroundColor == "rgb(0, 0, 0)") && (gamestarted == true) && (tutorial == false) ){
+            movedown();
+        } else if ( (document.getElementById("dd").style.backgroundColor == "rgb(255, 255, 255)") && (gamestarted == true) && (tutorial == false) ){
+            togglegame();
+        }
+    });
+    
+    
+    
+    function movedown(){
+        document.getElementById("da").style.backgroundColor = document.getElementById("ca").style.backgroundColor;
+        document.getElementById("db").style.backgroundColor = document.getElementById("cb").style.backgroundColor;
+        document.getElementById("dc").style.backgroundColor = document.getElementById("cc").style.backgroundColor;
+        document.getElementById("dd").style.backgroundColor = document.getElementById("cd").style.backgroundColor;
+        
+        document.getElementById("ca").style.backgroundColor = document.getElementById("ba").style.backgroundColor;
+        document.getElementById("cb").style.backgroundColor = document.getElementById("bb").style.backgroundColor;
+        document.getElementById("cc").style.backgroundColor = document.getElementById("bc").style.backgroundColor;
+        document.getElementById("cd").style.backgroundColor = document.getElementById("bd").style.backgroundColor;
+        
+        document.getElementById("ba").style.backgroundColor = document.getElementById("aa").style.backgroundColor;
+        document.getElementById("bb").style.backgroundColor = document.getElementById("ab").style.backgroundColor;
+        document.getElementById("bc").style.backgroundColor = document.getElementById("ac").style.backgroundColor;
+        document.getElementById("bd").style.backgroundColor = document.getElementById("ad").style.backgroundColor;
+        
+        document.getElementById("aa").style.backgroundColor = "rgb(255, 255, 255)";
+        document.getElementById("ab").style.backgroundColor = "rgb(255, 255, 255)";
+        document.getElementById("ac").style.backgroundColor = "rgb(255, 255, 255)";
+        document.getElementById("ad").style.backgroundColor = "rgb(255, 255, 255)";
+        
+        var ar = randomIntFromInterval(1,4);      
+        switch(ar){
+            case 1:
+                document.getElementById("aa").style.backgroundColor = "#000";
+                break;
+            case 2:
+                document.getElementById("ab").style.backgroundColor = "#000";
+                break;
+            case 3:
+                document.getElementById("ac").style.backgroundColor = "#000";
+                break;
+            case 4:
+                document.getElementById("ad").style.backgroundColor = "#000";
+        }
+        
+    }
+    function tut(){
+        document.getElementById("topbar").innerHTML = "CANNOT STOP TUTORIAL";
+        tutorial = true;
+        gamestarted = true;
+        document.getElementById("tut").innerHTML = "See the buttons on the 4 squares that are colored black? Those are the corresponding keys to press that square."
+        
+        document.getElementById("aa").style.backgroundColor = "#FFF";
+        document.getElementById("ab").style.backgroundColor = "#FFF";
+        document.getElementById("ac").style.backgroundColor = "#FFF";
+        document.getElementById("ad").style.backgroundColor = "#FFF";
+        
+        document.getElementById("ba").style.backgroundColor = "#FFF";
+        document.getElementById("bb").style.backgroundColor = "#FFF";
+        document.getElementById("bc").style.backgroundColor = "#FFF";
+        document.getElementById("bd").style.backgroundColor = "#FFF";
+        
+        document.getElementById("ca").style.backgroundColor = "#FFF";
+        document.getElementById("cb").style.backgroundColor = "#FFF";
+        document.getElementById("cc").style.backgroundColor = "#FFF";
+        document.getElementById("cd").style.backgroundColor = "#FFF";
+        
+        document.getElementById("da").style.backgroundColor = "#000";
+        document.getElementById("db").style.backgroundColor = "#000";
+        document.getElementById("dc").style.backgroundColor = "#000";
+        document.getElementById("dd").style.backgroundColor = "#000";
+        
+        document.getElementById("da").innerHTML = "Z";
+        document.getElementById("db").innerHTML = "X";
+        document.getElementById("dc").innerHTML = "C";
+        document.getElementById("dd").innerHTML = "V";
+        
+        document.getElementById("tut").style.opacity = "1";
+        setTimeout("tut2()",5000);
+    }
+    function tut2(){
+        document.getElementById("da").style.backgroundColor = "#FFF";
+        document.getElementById("db").style.backgroundColor = "#FFF";
+        document.getElementById("dc").style.backgroundColor = "#FFF";
+        document.getElementById("dd").style.backgroundColor = "#FFF";
+        
+        document.getElementById("tut").innerHTML = "The aim of the game is to press the key that corresponds to the black square.";
+        setTimeout("tut3()",5000);
+    }
+    function tut3(){
+        document.getElementById("tut").innerHTML = "For example, the key that you have to press here is the C key.";
+        
+        document.getElementById("da").style.backgroundColor = "#FFF";
+        document.getElementById("db").style.backgroundColor = "#FFF";
+        document.getElementById("dc").style.backgroundColor = "#000";
+        document.getElementById("dd").style.backgroundColor = "#FFF";
+        setTimeout("tut4()",5000);
+    }
+    function tut4(){
+        document.getElementById("tut").innerHTML = "If you accidentally hit the white squares, you lose!";
+        
+        document.getElementById("da").style.backgroundColor = "#FFF";
+        document.getElementById("db").style.backgroundColor = "#000";
+        document.getElementById("dc").style.backgroundColor = "#FFF";
+        document.getElementById("dd").style.backgroundColor = "#FFF";
+        
+        document.getElementById("da").style.color = "#000";
+        document.getElementById("db").style.color = "#000";
+        document.getElementById("dc").style.color = "#000";
+        document.getElementById("dd").style.color = "#000";
+        setTimeout("tut5()",5000);
+    }
+    function tut5(){
+        document.getElementById("tut").style.opacity = 0;
+        document.getElementById("tut").innerHTML = "";
+        
+        document.getElementById("da").style.backgroundColor = "#FFF";
+        document.getElementById("db").style.backgroundColor = "#FFF";
+        document.getElementById("dc").style.backgroundColor = "#FFF";
+        document.getElementById("dd").style.backgroundColor = "#FFF";
+        
+        document.getElementById("da").innerHTML = "";
+        document.getElementById("db").innerHTML = "";
+        document.getElementById("dc").innerHTML = "";
+        document.getElementById("dd").innerHTML = "";
+        gamestarted = false;
+        tutorial = false;
+        document.getElementById("topbar").innerHTML = "START GAME";
+    }
+    function randomIntFromInterval(min,max)
+    {
+    return Math.floor(Math.random()*(max-min+1)+min);
+    }
+    
+    function startgame(){
+        if(gamestarted == true){
+            alert("Game already started...");
+        } else {
+            gamestarted = true;
+            var ar = randomIntFromInterval(1,4);
+        var br = randomIntFromInterval(1,4);
+        var cr = randomIntFromInterval(1,4);
+        var dr = randomIntFromInterval(1,4);
+        
+        switch(ar){
+            case 1:
+                document.getElementById("aa").style.backgroundColor = "#000";
+                break;
+            case 2:
+                document.getElementById("ab").style.backgroundColor = "#000";
+                break;
+            case 3:
+                document.getElementById("ac").style.backgroundColor = "#000";
+                break;
+            case 4:
+                document.getElementById("ad").style.backgroundColor = "#000";
+        }
+        switch(br){
+            case 1:
+                document.getElementById("ba").style.backgroundColor = "#000";
+                break;
+            case 2:
+                document.getElementById("bb").style.backgroundColor = "#000";
+                break;
+            case 3:
+                document.getElementById("bc").style.backgroundColor = "#000";
+                break;
+            case 4:
+                document.getElementById("bd").style.backgroundColor = "#000";
+        }
+        switch(cr){
+            case 1:
+                document.getElementById("ca").style.backgroundColor = "#000";
+                break;
+            case 2:
+                document.getElementById("cb").style.backgroundColor = "#000";
+                break;
+            case 3:
+                document.getElementById("cc").style.backgroundColor = "#000";
+                break;
+            case 4:
+                document.getElementById("cd").style.backgroundColor = "#000";
+        }
+        switch(dr){
+            case 1:
+                document.getElementById("da").style.backgroundColor = "#000";
+                break;
+            case 2:
+                document.getElementById("db").style.backgroundColor = "#000";
+                break;
+            case 3:
+                document.getElementById("dc").style.backgroundColor = "#000";
+                break;
+            case 4:
+                document.getElementById("dd").style.backgroundColor = "#000";
+                break;
+        }
+        }
+        
+    }
+    function stopgame(){
+        document.getElementById("aa").style.backgroundColor = "#FFF";
+        document.getElementById("ab").style.backgroundColor = "#FFF";
+        document.getElementById("ac").style.backgroundColor = "#FFF";
+        document.getElementById("ad").style.backgroundColor = "#FFF";
+        
+        document.getElementById("ba").style.backgroundColor = "#FFF";
+        document.getElementById("bb").style.backgroundColor = "#FFF";
+        document.getElementById("bc").style.backgroundColor = "#FFF";
+        document.getElementById("bd").style.backgroundColor = "#FFF";
+        
+        document.getElementById("ca").style.backgroundColor = "#FFF";
+        document.getElementById("cb").style.backgroundColor = "#FFF";
+        document.getElementById("cc").style.backgroundColor = "#FFF";
+        document.getElementById("cd").style.backgroundColor = "#FFF";
+        
+        document.getElementById("da").style.backgroundColor = "#FFF";
+        document.getElementById("db").style.backgroundColor = "#FFF";
+        document.getElementById("dc").style.backgroundColor = "#FFF";
+        document.getElementById("dd").style.backgroundColor = "#FFF";
+        gamestarted = false;
+    }
+    
+    function togglegame(){
+        if( (gamestarted == true) && (tutorial == false) ){
+            stopgame();
+            document.getElementById("topbar").innerHTML = "START GAME";
+        } else if((gamestarted == false) && (tutorial == false)){
+            startgame();
+            document.getElementById("topbar").innerHTML = "STOP GAME";
+        }
+            
+        }
+    function savehighscore(){
+        setCookie("highscore",highscore,365);
+    }
+    setInterval("savehighscore()",1000);
+    
+</script>
+</body>
