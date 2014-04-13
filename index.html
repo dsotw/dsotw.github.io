@@ -73,6 +73,7 @@ else
     var listener = new window.keypress.Listener();
     var gamestarted = false;
     var tutorial = false;
+    var score = 0;
     
     checkCookie(); //checks the highscores
     
@@ -143,6 +144,7 @@ else
             case 4:
                 document.getElementById("ad").style.backgroundColor = "#000";
         }
+        score++;
         
     }
     function tut(){
@@ -238,6 +240,7 @@ else
             alert("Game already started...");
         } else {
             gamestarted = true;
+            score = 0;
             var ar = randomIntFromInterval(1,4);
         var br = randomIntFromInterval(1,4);
         var cr = randomIntFromInterval(1,4);
@@ -320,6 +323,7 @@ else
         document.getElementById("dc").style.backgroundColor = "#FFF";
         document.getElementById("dd").style.backgroundColor = "#FFF";
         gamestarted = false;
+        alert("Score: " + score);
     }
     
     function togglegame(){
