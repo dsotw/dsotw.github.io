@@ -323,6 +323,17 @@ else
         document.getElementById("dc").style.backgroundColor = "#FFF";
         document.getElementById("dd").style.backgroundColor = "#FFF";
         gamestarted = false;
+        
+        if(score > highscore){
+            alert("New Highscore: " + score);
+        } else if(score == highscore){
+            alert("Awww, you almost beat your highscore! Score: " + score + ", Highscore: " + highscore);
+        } else if(score < highscore){
+            var newhighscore = highscore -= score;
+            newhighscore++;
+            alert("Score: " + score + ", you need " + newhighscore + " for a new high score!")
+        }
+        
         alert("Score: " + score);
     }
     
