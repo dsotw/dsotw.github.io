@@ -42,6 +42,14 @@ else
     <div id="topbar" onmousedown="togglegame();">START GAME</div>
     <div id="comeback">Hey :( Come back here!</div>
     <div id="buttons" onmousedown="tut();">How to Play</div>
+    <div id="highscore">
+        <table>
+            <tr>
+                <td>Highscore:</td>
+                <td id="hsnum">0</td>
+            </tr>
+        </table>
+    </div>
     <div id="game_wrapper" align="center">
         <div id="game">
             <div class="square" id="aa"></div>
@@ -74,6 +82,7 @@ else
     var gamestarted = false;
     var tutorial = false;
     var score = 0;
+    var timer = 10;
     
     checkCookie(); //checks the highscores
     
@@ -187,7 +196,7 @@ else
         document.getElementById("dc").style.backgroundColor = "#FFF";
         document.getElementById("dd").style.backgroundColor = "#FFF";
         
-        document.getElementById("tut").innerHTML = "The aim of the game is to press the key that corresponds to the black square.";
+        document.getElementById("tut").innerHTML = "The aim of the game is to press the key that corresponds to the black square for 10 seconds.";
         setTimeout("tut3()",5000);
     }
     function tut3(){
@@ -346,6 +355,10 @@ else
         }
     function savehighscore(){
         setCookie("highscore",highscore,365);
+        updatehighscore();
+    }
+    function updatehighscore(){
+        document.getElementById("hsnum").innerHTML = highscore;
     }
     setInterval("savehighscore()",1000);
     

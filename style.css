@@ -93,4 +93,13 @@ body {
 #buttons:hover {
     cursor: pointer;
 }
-
+#highscore{
+    position: absolute;
+    left: 10px;
+    top: 120px;
+    display: inline-block;
+}
+#highscore table tr td{
+    color: #FFF;
+    font-size: large;
+}
